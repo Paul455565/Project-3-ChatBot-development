@@ -1,6 +1,9 @@
 package za.ac.cput.domain;
 
+import javax.persistence.Id;
+
 public class User {
+    @Id
     private int userId;
     private String userName;
     private String email;
