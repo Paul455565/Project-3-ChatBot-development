@@ -1,24 +1,30 @@
 package za.ac.cput.domain;
 
-import java.util.Date;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
-public class chatSession {
+import java.util.Date;
+
+@Entity
+@Table(name = "C_sessions")
+public class ChatSession {
 
     @Id
-    private int sessionId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long sessionId;
     private int UserId;
     private Date startTime;
     private Date endTime;
 
-    public chatSession(chatSession builder) {
+    public ChatSession(ChatSession builder) {
         this.sessionId = builder.sessionId;
         this.UserId = builder.UserId;
         this.startTime = builder.startTime;
         this.endTime = builder.endTime;
     }
 
-    public int getSessionId() {
+    public ChatSession() {}
+
+    public Long getSessionId() {
         return sessionId;
     }
 
@@ -46,33 +52,41 @@ public class chatSession {
 
     public static class Builder {
 
-        private int sessionId;
+        private Long sessionId;
         private int UserId;
         private Date startTime;
         private Date endTime;
 
-        public chatSession.Builder setSessionId(int sessionId) {
+        public Builder setSessionId(Long sessionId) {
             this.sessionId = sessionId;
             return this;
         }
 
-        public chatSession.Builder setUserId(int userId) {
-            UserId = userId;
+        public Builder setUserId(int userId) {
+            this.UserId = userId;
             return this;
         }
 
-        public chatSession.Builder setStartTime(Date startTime) {
+        public Builder setStartTime(Date startTime) {
             this.startTime = startTime;
             return this;
         }
 
-        public chatSession.Builder setEndTime(Date endTime) {
+        public Builder setEndTime(Date endTime) {
             this.endTime = endTime;
             return this;
         }
-    }
-    public chatSession build(){
-        return new chatSession(this);
+        public Builder copyChatSession(ChatSession session) {
+            this.sessionId = session.sessionId;
+            this.UserId = session.UserId;
+            this.startTime = session.startTime;
+            this.endTime = session.endTime;
+            return this;
+        }
+        public ChatSession buildChatSession(){
+            return new ChatSession(this.buildChatSession());
 
+        }
     }
+
 }
