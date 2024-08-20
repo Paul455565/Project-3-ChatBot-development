@@ -8,9 +8,5 @@ import java.util.List;
 
 @Repository
 public interface chatMessagesRepository extends JpaRepository<chatMessages, String> {
-    chatMessages saveMessage(chatMessages message);
-
-    List<chatMessages> getMessagesByMessageIdId(int messageId);
-
-    void deleteMessageById(Long messageId);
+    List<chatMessages> findBySessionId(int sessionId);
 }
