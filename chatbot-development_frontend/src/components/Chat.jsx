@@ -1,57 +1,49 @@
-import React, { useState, useEffect } from 'react';
-//import './Chat.css';
-// import { saveMessage, getMessagesBySessionId } from './chatService';
+import React, { useState } from 'react';
+// import './Chat.css';
 
 function Chat() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
-    const sessionId = 1; // Example session ID; this could be dynamic
+    const
+        [error, setError] = useState(null);
 
-    // useEffect(() => {
-    //     // Fetch messages when the component mounts
-    //     const fetchMessages = async () => {
-    //         try {
-    //             const data = await getMessagesBySessionId(sessionId);
-    //             setMessages(data);
-    //         } catch (error) {
-    //             console.error('Error fetching messages:', error);
-    //         }
-    //     };
+    const handleSendMessage = () => {
+        try {
+            if (input.trim() !== '') {
+                const userMessage = {sender: 'You', text: input};
+                const botMessage = {sender: 'Bot', text: `Echo: ${input}`};
 
-    //     fetchMessages();
-    // }, [sessionId]);
-
-    const handleSendMessage = async () => {
-        if (input.trim() !== '') {
-            const message = { sender: 'You', text: input, sessionId: sessionId };
-
-            // try {
-            //     // Save the message to the backend
-            //     const savedMessage = await saveMessage(message);
-            //     // Update the message list
-            //     setMessages([...messages, savedMessage]);
-            //     setInput('');
-            // } catch (error) {
-            //     console.error('Error sending message:', error);
-            // }
-
-            // Temporarily display the message without backend integration
-            setMessages([...messages, message]);
-            setInput('');
+                setMessages([...messages, userMessage, botMessage]);
+                setInput('');
+            }
+        }catch (error) {
+            setError(error.message);
         }
+    };
+    const handlePreviousChats = () => {
+        // Implement logic for navigating to previous chats
+        console.log('Navigating to previous chats');
+    };
+
+    const handleLogout = () => {
+        // Implement logout logic
+        console.log('Logging out');
     };
 
     return (
         <div className="chat-wrapper">
             <header>
                 <nav>
-                    <button>Previous Chats</button>
-                    <button>Logout</button>
+                    <button onClick={handlePreviousChats}>Previous Chats</button>
+                    <button onClick={handleLogout}>Logout</button>
                 </nav>
             </header>
             <div className="chat-output">
                 {messages.map((msg, index) => (
-                    <div key={index} className={`chat-message ${msg.sender.toLowerCase()}`}>
+                    <div
+                        key={index}
+                        className={`chat-message ${msg.sender === 'You' ? 'user-message' : 'bot-message'}`}
+                    >
                         <strong>{msg.sender}:</strong> {msg.text}
                     </div>
                 ))}
@@ -66,8 +58,13 @@ function Chat() {
                 />
                 <button onClick={handleSendMessage}>Send</button>
             </div>
+            {error && <div className="error-message">{error}</div>}
         </div>
     );
 }
 
 export default Chat;
+
+
+
+

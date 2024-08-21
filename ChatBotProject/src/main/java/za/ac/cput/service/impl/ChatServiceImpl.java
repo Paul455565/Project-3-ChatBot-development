@@ -9,7 +9,7 @@ import za.ac.cput.service.ChatService;
 import java.util.List;
 
 @Service
-public class ChatServiceImpl implements ChatService {
+public class ChatServiceImpl extends ChatService {
 
     private final chatMessagesRepository chatMessagesRepository;
 

@@ -137,6 +137,7 @@ input:focus {
 }
 
 /* Chat.css */
+
 html, body {
   height: 100%;
   margin: 0;
@@ -182,13 +183,30 @@ header button {
   overflow-y: auto;
   background-color: white;
   border-bottom: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  color: black; /* Ensure text color is black */
 }
 
 .chat-message {
   margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 60%;
+  word-wrap: break-word;
+  color: black; /* Ensure text color is black */
+}
+
+.user-message {
+  background-color: #d4eaff;
+  align-self: flex-end;
+  text-align: right;
+  margin-left: auto; /* Pushes the message to the far right */
+}
+
+.bot-message {
+  background-color: #f1f1f1;
+  align-self: flex-start;
+  text-align: left;
+  margin-right: auto; /* Pushes the message to the far left */
 }
 
 .chat-input {
@@ -197,7 +215,6 @@ header button {
   background-color: #f1f1f1;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  align-items: center; /* Center the input and button vertically */
 }
 
 .chat-input input[type="text"] {
@@ -205,7 +222,7 @@ header button {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
+  color: black; /* Ensure input text color is black */
 }
 
 .chat-input button {
@@ -219,5 +236,9 @@ header button {
 }
 
 .chat-input button:hover {
-  background-color: #4a5f73;
+  background-color: #617993;
 }
+
+
+
+
