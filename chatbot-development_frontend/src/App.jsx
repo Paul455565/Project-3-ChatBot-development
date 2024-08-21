@@ -1,24 +1,38 @@
 // App.js
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Chat from './Components/Chat';
-import Login from './Components/LoginPage';
+import Chat from './components/Chat';
+import Login from './components/LoginPage';
+import Registration from './components/RegistrationPage';
 import './App.css';
 
 function App() {
     return (
         <Router>
-            <div style={{ padding: '20px' }}>
-                <nav>
-                    <Link to="/chat">Chat</Link> | <Link to="/login">Login</Link>
-                </nav>
+            <div className="container">
+                <header className="header">
+                    <nav>
+                        <Link to="/chat">Chat</Link>
+                        <Link to="/login">Login</Link>
+                        <Link to="/register">Register</Link>
+                    </nav>
+                </header>
+
                 <Routes>
-                    {/* Routes component should wrap around all Route components */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/chat" element={<Chat />} />
+                    <Route path="/register" element={<Registration />} />
                 </Routes>
+
+                <footer className="footer">
+                </footer>
             </div>
         </Router>
     );
 }
 
 export default App;
+
+
+
+
+

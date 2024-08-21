@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface chatMessagesRepository extends JpaRepository<chatMessages, String> {
     List<chatMessages> findBySessionId(int sessionId);
+
 }
