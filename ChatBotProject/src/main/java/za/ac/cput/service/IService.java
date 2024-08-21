@@ -10,7 +10,7 @@ public interface IService<T, ID> {
     // Method to update an existing entity
     T update(T t);
     // Method to delete an entity by its ID
-    void delete(ID id);
+    boolean delete(ID id);
     // Method to get all entities
     List<T> getAll();
 }
