@@ -11,7 +11,6 @@ import za.ac.cput.domain.ChatSession;
 import za.ac.cput.repository.ChatMessageRepository;
 import za.ac.cput.service.impl.ChatServiceImpl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +28,14 @@ class ChatMessagesServiceTest {
     private ChatServiceImpl service;
 
     private ChatMessage message;
+    private ChatSession session;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
         // Create a ChatSession object
-        ChatSession session = new ChatSession.Builder()
+        session = new ChatSession.Builder()
                 .setSessionId(1L)
                 .setUserId(1)
                 .setStartTime(LocalDateTime.of(2024, 3, 1, 10, 0))
@@ -47,7 +47,7 @@ class ChatMessagesServiceTest {
                 .setMessageId(1)
                 .setSession(session) // Use ChatSession object
                 .setText("Hello")
-                .setTimeStamp(LocalDate.from(LocalDateTime.of(2024, 3, 25, 10, 0))) // Use LocalDateTime
+                .setTimeStamp(LocalDateTime.of(2024, 3, 25, 10, 0)) // Use LocalDateTime directly
                 .build();
     }
 
@@ -64,6 +64,7 @@ class ChatMessagesServiceTest {
         List<ChatMessage> messages = new ArrayList<>();
         messages.add(message);
         when(repository.findBySessionId(1L)).thenReturn(messages);
+        //Test Change
 
         List<ChatMessage> retrievedMessages = service.getMessagesBySessionId(1L);
         assertEquals(1, retrievedMessages.size());
@@ -78,4 +79,5 @@ class ChatMessagesServiceTest {
         verify(repository, times(1)).deleteById(1);
     }
 }
+
 
