@@ -2,27 +2,40 @@ package za.ac.cput.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.domain.chatMessages;
-import za.ac.cput.repository.chatMessagesRepository;
+import za.ac.cput.domain.ChatMessage;
+import za.ac.cput.domain.ChatSession;
+import za.ac.cput.repository.ChatMessageRepository;
+import za.ac.cput.repository.ChatSessionRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ChatService {
 
     @Autowired
-    private chatMessagesRepository chatMessagesRepository;
+    private ChatMessageRepository chatMessageRepository;
 
-    public chatMessages saveMessage(chatMessages chatMessage) {
-        return chatMessagesRepository.save(chatMessage);
+    @Autowired
+    private ChatSessionRepository chatSessionRepository;
+
+    public ChatMessage saveMessage(ChatMessage chatMessage) {
+        return chatMessageRepository.save(chatMessage);
     }
 
-    public List<chatMessages> getMessagesBySessionId(int sessionId) {
-        return chatMessagesRepository.findBySessionId(sessionId);
+    public List<ChatMessage> getMessagesBySessionId(Long sessionId) {
+        Optional<ChatSession> session = chatSessionRepository.findById(sessionId);
+        return session.map(chatMessageRepository::findBySession).orElse(null);
     }
 
-    public void deleteMessageById(Long id) {
-        chatMessagesRepository.deleteById(String.valueOf(id));
+    public List<ChatMessage> getMessagesBySession(ChatSession session) {
+        return chatMessageRepository.findBySession(session);
+    }
+
+    public void deleteMessageById(int id) {
+        chatMessageRepository.deleteById(id);
     }
 }
+
+
 

@@ -8,8 +8,10 @@ public class Helper {
     public static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty();
     }
+
+    // Method to check if an integer is zero
     public static boolean isNull(int s) {
-        return s == 0 ;
+        return s == 0;
     }
 
     // Method to generate a unique ID using UUID
@@ -17,8 +19,11 @@ public class Helper {
         return UUID.randomUUID().toString(); // Returns a randomly generated UUID converted to string
     }
 
+    // Method to validate an email address using regex
     public static boolean isValidEmail(String email) {
+        // Basic regex pattern for email validation
         String regexPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         return Pattern.compile(regexPattern).matcher(email).matches();
     }
 }
+

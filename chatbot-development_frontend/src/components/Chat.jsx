@@ -1,41 +1,37 @@
 import React, { useState } from 'react';
-// import './Chat.css';
+import axios from 'axios';
 
 function Chat() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
-    const
-        [error, setError] = useState(null);
+    const [error, setError] = useState(null);
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         try {
             if (input.trim() !== '') {
-                const userMessage = {sender: 'You', text: input};
-                const botMessage = {sender: 'Bot', text: `Echo: ${input}`};
+                // Create the message object
+                const userMessage = { text: input };
 
-                setMessages([...messages, userMessage, botMessage]);
+                // Post the message to the backend
+                await axios.post('/api/chat/messages', userMessage);
+
+                // Immediately reflect the message on the UI
+                setMessages([...messages, { sender: 'You', text: input }]);
+
+                // Clear the input field
                 setInput('');
             }
-        }catch (error) {
-            setError(error.message);
+        } catch (error) {
+            setError('Failed to send message.');
         }
-    };
-    const handlePreviousChats = () => {
-        // Implement logic for navigating to previous chats
-        console.log('Navigating to previous chats');
-    };
-
-    const handleLogout = () => {
-        // Implement logout logic
-        console.log('Logging out');
     };
 
     return (
         <div className="chat-wrapper">
             <header>
                 <nav>
-                    <button onClick={handlePreviousChats}>Previous Chats</button>
-                    <button onClick={handleLogout}>Logout</button>
+                    <button onClick={() => console.log('Navigating to previous chats')}>Previous Chats</button>
+                    <button onClick={() => console.log('Logging out')}>Logout</button>
                 </nav>
             </header>
             <div className="chat-output">
@@ -64,6 +60,11 @@ function Chat() {
 }
 
 export default Chat;
+
+
+
+
+
 
 
 

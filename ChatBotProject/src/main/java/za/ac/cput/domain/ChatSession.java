@@ -2,7 +2,7 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "C_sessions")
@@ -11,51 +11,54 @@ public class ChatSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sessionId;
-    private int UserId;
-    private Date startTime;
-    private Date endTime;
+    private int userId;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
-    public ChatSession(ChatSession builder) {
+    // Default constructor
+    public ChatSession() {}
+
+    // Private constructor for Builder
+    private ChatSession(Builder builder) {
         this.sessionId = builder.sessionId;
-        this.UserId = builder.UserId;
+        this.userId = builder.userId;
         this.startTime = builder.startTime;
         this.endTime = builder.endTime;
     }
-
-    public ChatSession() {}
 
     public Long getSessionId() {
         return sessionId;
     }
 
     public int getUserId() {
-        return UserId;
+        return userId;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
     @Override
     public String toString() {
-        return "chatSession{" +
+        return "ChatSession{" +
                 "sessionId=" + sessionId +
-                ", UserId=" + UserId +
+                ", userId=" + userId +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 '}';
     }
 
+    // Builder class
     public static class Builder {
 
         private Long sessionId;
-        private int UserId;
-        private Date startTime;
-        private Date endTime;
+        private int userId;
+        private LocalDateTime startTime;
+        private LocalDateTime endTime;
 
         public Builder setSessionId(Long sessionId) {
             this.sessionId = sessionId;
@@ -63,30 +66,31 @@ public class ChatSession {
         }
 
         public Builder setUserId(int userId) {
-            this.UserId = userId;
+            this.userId = userId;
             return this;
         }
 
-        public Builder setStartTime(Date startTime) {
+        public Builder setStartTime(LocalDateTime startTime) {
             this.startTime = startTime;
             return this;
         }
 
-        public Builder setEndTime(Date endTime) {
+        public Builder setEndTime(LocalDateTime endTime) {
             this.endTime = endTime;
             return this;
         }
+
         public Builder copyChatSession(ChatSession session) {
             this.sessionId = session.sessionId;
-            this.UserId = session.UserId;
+            this.userId = session.userId;
             this.startTime = session.startTime;
             this.endTime = session.endTime;
             return this;
         }
-        public ChatSession buildChatSession(){
-            return new ChatSession(this.buildChatSession());
 
+        public ChatSession build() {
+            return new ChatSession(this);
         }
     }
-
 }
+
