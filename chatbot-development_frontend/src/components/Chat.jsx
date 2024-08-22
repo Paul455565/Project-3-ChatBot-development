@@ -7,22 +7,30 @@ function Chat() {
     const [error, setError] = useState(null);
 
     const handleSendMessage = async () => {
+        if (input.trim() === '') return; // Do nothing if the input is empty
+
+        // Create the message object
+        const userMessage = { text: input };
+
+        // Immediately reflect the user's message on the UI
+        setMessages([...messages, { sender: 'You', text: input }]);
+
+        // Mirror the user's input as the chatbot's response
+        setMessages(prevMessages => [
+            ...prevMessages,
+            { sender: 'You', text: input },
+            { sender: 'Chatbot', text: input } // Mirror as chatbot response
+        ]);
+
+        // Clear the input field
+        setInput('');
+
         try {
-            if (input.trim() !== '') {
-                // Create the message object
-                const userMessage = { text: input };
-
-                // Post the message to the backend
-                await axios.post('/api/chat/messages', userMessage);
-
-                // Immediately reflect the message on the UI
-                setMessages([...messages, { sender: 'You', text: input }]);
-
-                // Clear the input field
-                setInput('');
-            }
+            // Attempt to post the message to the backend
+            await axios.post('/api/chat/messages', userMessage);
         } catch (error) {
-            setError('Failed to send message.');
+            setError('Failed to send message to databse.');
+            console.error('Error sending message:', error);
         }
     };
 
@@ -60,6 +68,7 @@ function Chat() {
 }
 
 export default Chat;
+
 
 
 
