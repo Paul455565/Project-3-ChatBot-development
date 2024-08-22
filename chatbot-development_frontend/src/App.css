@@ -227,6 +227,225 @@ header button {
 
 .chat-input button {
   padding: 10px 20px;
+  background-color: #617993; /* Same background color as the header */
+  color: white; /* White text color for better contrast */
+  border: 1px solid #f1f1f1; /* Light gray border */
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #4a617d; /* Darker shade for the hover effect */
+  color: white;
+}
+
+.chat-output {
+  padding-top: 50px; /* Add padding to ensure the entire chat area is visible */
+}
+
+
+
+/* Registration css*/
+.registration-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.input-container {
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+}
+
+.register-button {
+  padding: 10px;
+  border: none;
+  border-radius: 25px;
+  background-color: #ddd;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background-color: #ccc;
+}
+
+.login-link {
+  margin-top: 20px;
+  color: #000;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+.input-container {
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+/*Header css*/
+/* Header.css */
+.header {
+  background-color: #617993;
+  padding: 10px;
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.nav-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #ccc;
+}
+
+/* Footer css*/
+.footer {
+  padding: 20px;
+  background-color: #617993;
+  color: white;
+  text-align: center;
+  margin-top: auto;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ddd;
+}
+/*General*/
+/* App.css */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+}
+
+.header, .footer {
+  background-color: #617993;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.header nav a, .footer a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.header nav a:hover, .footer a:hover {
+  text-decoration: underline;
+}
+
+.chat-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 90%; /* Adjust the width to ensure it fits within the page */
+}
+
+.chat-output {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.chat-input input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.chat-input button {
+  padding: 10px 20px;
   background-color: #617993;
   color: white;
   border: none;
@@ -236,8 +455,11 @@ header button {
 }
 
 .chat-input button:hover {
-  background-color: #617993;
+  background-color: #506080;
 }
+
+
+
 
 
 

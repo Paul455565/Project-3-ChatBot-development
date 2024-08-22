@@ -7,7 +7,7 @@ import za.ac.cput.repository.ChatSessionRepository;
 import java.util.List;
 
 @Service
-public class ChatSessionService implements IService<ChatSession,Long>{
+public class ChatSessionService implements IService<ChatSession,Long> {
 
     private final ChatSessionRepository chatSessionRepository;
 
@@ -30,9 +30,11 @@ public class ChatSessionService implements IService<ChatSession,Long>{
         return chatSessionRepository.save(chatSession);
     }
 
-    public void delete(Long sessionId) {
-chatSessionRepository.deleteChatSessionBySessionId(sessionId);
+    public boolean delete(Long sessionId) {
+        chatSessionRepository.deleteChatSessionBySessionId(sessionId);
+        return true;
     }
+
 
     @Override
     public List<ChatSession> getAll() {
