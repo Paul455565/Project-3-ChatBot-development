@@ -1,28 +1,42 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router for navigation
+import { Link, useNavigate } from 'react-router-dom';
+import cputLogo from '../assets/cput-logo.jpg';
 
 const LoginPage = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // React Router hook for navigation
+    const [responseMessage, setResponseMessage] = useState('');
 
-    const handleLogin = (event) => {
-        event.preventDefault();
+    const navigate = useNavigate(); // Initialize the useNavigate hook
 
-        // Directly navigate to the chatbot screen after login button is pressed
-        navigate('/Chat');
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // Hardcoded login details for demonstration
+        const hardcodedEmail = 'paulmaja14@gmail.com';
+        const hardcodedPassword = 'paulmaja14';
+
+        if (email === hardcodedEmail && password === hardcodedPassword) {
+            setResponseMessage('Login successful');
+            // Redirect to chat page upon successful login
+            navigate('/chat'); // Navigate to the chat page
+        } else {
+            setResponseMessage('Invalid credentials, try again!'); // Set error message
+        }
     };
 
     return (
         <div className="login-container">
+            <img src={cputLogo} alt="CPUT Logo" className="cput-logo"/>
             <h1>Login</h1>
-            <form className="login-form" onSubmit={handleLogin}>
+            <form className="login-form" onSubmit={handleSubmit}>
                 <div className="input-container">
                     <input
-                        type="text"
-                        placeholder="Username..."
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        type="email"
+                        placeholder="Email..."
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="input-container">
@@ -31,14 +45,16 @@ const LoginPage = () => {
                         placeholder="Password..."
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                 </div>
                 <button type="submit" className="login-button">Login</button>
+                {responseMessage && <p>{responseMessage}</p>}
             </form>
-            <a href="/register" className="register-link">Register...</a>
+            <Link to="/register" className="register-link">Register...</Link>
         </div>
     );
-};
+}
 
 export default LoginPage;
 

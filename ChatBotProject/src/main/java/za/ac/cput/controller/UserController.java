@@ -1,11 +1,15 @@
 package za.ac.cput.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.User;
 import za.ac.cput.service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -39,5 +43,25 @@ public class UserController {
     @GetMapping("/allUsers")
     public List<User> getAll() {
         return service.getAll();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> loginUser(@RequestBody User loginRequest) {
+        Map<String, String> response = new HashMap<>();
+
+        if (loginRequest.getEmail() == null || loginRequest.getPassword() == null) {
+            response.put("message", "Email and password are required");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        boolean isAuthenticated = service.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
+
+        if (isAuthenticated) {
+            response.put("message", "Login successful");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Invalid credentials");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
     }
 }

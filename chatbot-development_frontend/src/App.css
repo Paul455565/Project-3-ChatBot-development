@@ -40,6 +40,7 @@ input {
   border-radius: 25px;
   font-size: 16px;
   color: black; /* Ensure input text color is black */
+  background-color: white; /* Ensure input background is white */
 }
 
 input:focus {
@@ -74,24 +75,19 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-}
-
-h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
-  color: #333; /* Darker color for better readability */
+  height: 100vh; /* Full viewport height */
+  background-color: #f9f9f9;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  padding: 20px; /* Add padding to create space inside the form */
-  border: 1px solid #ddd; /* Light border around the form */
-  border-radius: 8px; /* Rounded corners */
-  background-color: #ffffff; /* Ensure the form background is white */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Full width */
+  max-width: 400px; /* Max width for responsiveness */
+  padding: 20px; /* Add padding for spacing */
+  border-radius: 10px; /* Optional rounded corners */
+  background-color: white; /* Set form background to white */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
 }
 
 .input-container {
@@ -101,34 +97,22 @@ h1 {
 input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc; /* Lighter border around text fields */
+  border: 1px solid #ccc;
   border-radius: 25px;
   font-size: 16px;
-  background-color: #fff; /* Ensure input fields are white */
-  color: black; /* Ensure input text color is black */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
-
-input:focus {
-  outline: none;
-  border-color: #aaa; /* Slightly darker border when focused */
 }
 
 .login-button {
   padding: 10px;
-  border: 1px solid #ccc; /* Light border around buttons */
+  border: none;
   border-radius: 25px;
-  background-color: #ddd; /* Lighter background for buttons */
+  background-color: #ddd;
   font-size: 18px;
-  color: black; /* Set button text color to black */
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .login-button:hover {
-  background-color: #ccc; /* Slightly darker on hover */
-  border-color: #bbb; /* Darker border on hover */
+  background-color: #ccc;
 }
 
 .register-link {
@@ -139,6 +123,23 @@ input:focus {
 
 .register-link:hover {
   text-decoration: underline;
+}
+
+.cput-logo {
+  width: 100px; /* Adjust the size as needed */
+  margin-bottom: 20px;
+}
+
+.back-to-landing {
+  margin-top: 20px;
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.back-to-landing:hover {
+  text-decoration: underline;
+  color: #007BFF; /* Optional: Change color on hover */
 }
 
 /* Chat.css */
@@ -247,23 +248,17 @@ header button {
   justify-content: center;
   height: 100vh;
   background-color: #f9f9f9;
-  color: black; /* Ensure all text is black */
-}
-
-h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
 }
 
 .registration-form {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  padding: 20px; /* Add padding to create space inside the form */
-  border: 1px solid #ddd; /* Light border around the form */
-  border-radius: 8px; /* Rounded corners */
-  background-color: #ffffff; /* Ensure the form background is white */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  width: 100%; /* Full width */
+  max-width: 400px; /* Max width for responsiveness */
+  padding: 20px; /* Add padding for spacing */
+  border-radius: 10px; /* Optional rounded corners */
+  background-color: white; /* Set form background to white */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
 }
 
 .input-container {
@@ -273,11 +268,9 @@ h1 {
 input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc; /* Lighter border around text fields */
+  border: 1px solid #ccc;
   border-radius: 25px;
   font-size: 16px;
-  color: black; /* Ensure input text color is black */
-  background-color: #fff; /* Ensure input fields are white */
 }
 
 .register-button {
@@ -287,7 +280,6 @@ input {
   background-color: #ddd;
   font-size: 18px;
   cursor: pointer;
-  color: black; /* Set button text color to black */
 }
 
 .register-button:hover {
@@ -316,7 +308,13 @@ input {
   cursor: pointer;
 }
 
+.cput-logo {
+  width: 100px; /* Adjust the size as needed */
+  margin-bottom: 20px;
+}
+
 /* Header.css */
+
 .header {
   background-color: #617993;
   padding: 10px;
@@ -346,6 +344,7 @@ input {
 }
 
 /* Footer.css */
+
 .footer {
   background-color: #617993;
   padding: 10px;
@@ -360,6 +359,26 @@ input {
 .footer p {
   margin: 0;
 }
+/* Move the logout button to the bottom-right corner of the page */
+.logout-button {
+  position: fixed;
+  bottom: 20px; /* Distance from the bottom of the page */
+  right: 20px; /* Distance from the right side of the page */
+  padding: 10px 20px;
+  background-color: #617993;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.logout-button:hover {
+  background-color: #4a617d; /* Darker shade for hover effect */
+}
+
+
 
 
 

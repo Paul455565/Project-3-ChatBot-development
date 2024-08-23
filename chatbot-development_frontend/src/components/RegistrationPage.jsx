@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import cputLogo from '../assets/cput-logo.jpg';
 
 const RegistrationPage = () => {
     // State to manage form fields
@@ -35,7 +36,8 @@ const RegistrationPage = () => {
             return;
         }
         try {
-            await axios.post('http://localhost:8081/Project-3-ChatBot-development/user/create', {
+            // eslint-disable-next-line no-unused-vars
+            const response = await axios.post('http://localhost:8081/Project-3-ChatBot-development/user/create', {
                 email: form.email,
                 password: form.password,
                 confirmPassword: form.confirmPassword
@@ -67,6 +69,7 @@ const RegistrationPage = () => {
 
     return (
         <div className="registration-container">
+            <img src={cputLogo} alt="CPUT Logo" className="cput-logo" />
             <h1>Register</h1>
             <form className="registration-form" onSubmit={handleSubmit}>
                 <div className="input-container">
