@@ -33,11 +33,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean delete(Integer userID) {
-        if (repository.existsById(userID)) {
-            repository.deleteById(userID);
-            return true;
-        }
+    public boolean delete(Integer integer) {
         return false;
     }
 
@@ -45,5 +41,15 @@ public class UserService implements IUserService {
     public List<User> getAll() {
         return repository.findAll();
     }
+
+    public boolean authenticateUser(String email, String password) {
+        User user = repository.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            return true;
+        }
+        return false;
+    }
+
+
 }
 

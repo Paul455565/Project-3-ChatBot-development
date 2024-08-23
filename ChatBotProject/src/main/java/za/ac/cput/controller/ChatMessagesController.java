@@ -10,11 +10,17 @@ import za.ac.cput.service.ChatService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/chat")
+@RequestMapping("/api/chat/messages")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ChatMessagesController {
 
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+    public ChatMessagesController(ChatService chatService) {
+        this.chatService = chatService;
+    }
 
     @PostMapping("/messages")
     public ResponseEntity<ChatMessage> saveMessage(@RequestBody ChatMessage chatMessage) {
