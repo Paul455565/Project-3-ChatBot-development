@@ -12,6 +12,8 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, Intege
     List<ChatMessage> findBySession(ChatSession session);
 
     // Or, query by the sessionId field within ChatSession
-    List<ChatMessage> findBySession_SessionId(Long sessionId);
+    //List<ChatMessage> findBySession_SessionId(Long sessionId);
+
+    //Object findBySessionId(long l);
 }
 
