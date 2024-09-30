@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import cputLogo from '../assets/cput-logo.jpg';
+import cputLogo from '../assets/cput-logo.jpeg';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -9,21 +9,33 @@ const LoginPage = () => {
 
     const navigate = useNavigate(); // Initialize the useNavigate hook
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Hardcoded login details for demonstration
-        const hardcodedEmail = 'paulmaja14@gmail.com';
-        const hardcodedPassword = 'paulmaja14';
+        try {
+            const response = await fetch('http://localhost:8081/Project-3-ChatBot-development/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                mode: 'cors',
 
-        if (email === hardcodedEmail && password === hardcodedPassword) {
-            setResponseMessage('Login successful');
-            // Redirect to chat page upon successful login
-            navigate('/chat'); // Navigate to the chat page
-        } else {
-            setResponseMessage('Invalid credentials, try again!'); // Set error message
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setResponseMessage('Login successful');
+                navigate('/chat'); // Redirect to chat page upon successful login
+            } else {
+                setResponseMessage(data.message || 'Invalid credentials, try again!');
+            }
+        } catch (error) {
+            setResponseMessage('An error occurred. Please try again.');
         }
     };
+
 
     return (
         <div className="login-container">
@@ -57,5 +69,6 @@ const LoginPage = () => {
 }
 
 export default LoginPage;
+
 
 
