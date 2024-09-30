@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { Link } from 'react-router-dom';
-import cputLogo from '../assets/cput-logo.jpg';
+import cputLogo from '../assets/cput-logo.jpeg';
 
 function LandingPage() {
     return (

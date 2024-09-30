@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import cputLogo from '../assets/cput-logo.jpg';
+import cputLogo from '../assets/cput-logo.jpeg';
 
 const RegistrationPage = () => {
     // State to manage form fields
