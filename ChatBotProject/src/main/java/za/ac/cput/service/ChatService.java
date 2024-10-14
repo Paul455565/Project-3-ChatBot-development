@@ -3,39 +3,62 @@ package za.ac.cput.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.ChatMessage;
-import za.ac.cput.domain.ChatSession;
 import za.ac.cput.repository.ChatMessageRepository;
-import za.ac.cput.repository.ChatSessionRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ChatService {
 
-    @Autowired
-    private ChatMessageRepository chatMessageRepository;
+    private final ChatMessageRepository chatMessageRepository;
 
     @Autowired
-    private ChatSessionRepository chatSessionRepository;
+    public ChatService(ChatMessageRepository chatMessageRepository) {
+        this.chatMessageRepository = chatMessageRepository;
+    }
 
-    public ChatMessage saveMessage(ChatMessage chatMessage) {
+
+    public ChatMessage create(String question, String answer) {
+        ChatMessage chatMessage = new ChatMessage.Builder()
+                .setQuestion(question)
+                .setAnswer(answer)
+                .setTimeStamp(LocalDate.now())
+                .build();
+
         return chatMessageRepository.save(chatMessage);
     }
 
-    public List<ChatMessage> getMessagesBySessionId(Long sessionId) {
-        Optional<ChatSession> session = chatSessionRepository.findById(sessionId);
-        return session.map(chatMessageRepository::findBySession).orElse(null);
+
+    public ChatMessage read(int messageId) {
+        return chatMessageRepository.findByMessageId(messageId).orElse(null);
     }
 
-    public List<ChatMessage> getMessagesBySession(ChatSession session) {
-        return chatMessageRepository.findBySession(session);
+
+    public ChatMessage update(int messageId, ChatMessage chatMessage) {
+        ChatMessage existingMessage = read(messageId);
+
+        if (existingMessage != null) {
+            ChatMessage updatedMessage = new ChatMessage.Builder()
+                    .copy(existingMessage)
+                    .setQuestion(chatMessage.getQuestion())
+                    .setAnswer(chatMessage.getAnswer())
+                    .setTimeStamp(chatMessage.getTimeStamp())
+                    .build();
+
+            return chatMessageRepository.save(updatedMessage);
+        }
+        return null;
     }
 
-    public void deleteMessageById(int id) {
-        chatMessageRepository.deleteById(id);
+
+    public void delete(int messageId) {
+        chatMessageRepository.deleteById(messageId);
+    }
+
+
+    public List<ChatMessage> getAll() {
+        return chatMessageRepository.findAll();
     }
 }
-
-
-
