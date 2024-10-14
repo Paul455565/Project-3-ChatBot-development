@@ -1,84 +1,104 @@
 package za.ac.cput.service;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.ChatMessage;
 import za.ac.cput.domain.ChatSession;
 import za.ac.cput.repository.ChatMessageRepository;
-import za.ac.cput.service.impl.ChatServiceImpl;
+import za.ac.cput.repository.ChatSessionRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
+@TestMethodOrder(MethodOrderer.MethodName.class)
 @SpringBootTest
-class ChatMessagesServiceTest {
+class ChatServiceTest {
+
+    @Autowired
+    private ChatService chatService;
+
+    @Autowired
+    private ChatMessageRepository chatMessageRepository;
 
     @Mock
-    private ChatMessageRepository repository;
+    private ChatSessionRepository chatSessionRepository;
 
-    @InjectMocks
-    private ChatServiceImpl service;
+    private ChatMessage chatMessage;
+    private ChatSession chatSession;
 
-    private ChatMessage message;
-    private ChatSession session;
-
-    @BeforeEach
-    void setUp() {
+    //@BeforeEach
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
-
-        // Create a ChatSession object
-        session = new ChatSession.Builder()
-                .setSessionId(1L)
-                .setUserId(1)
-                .setStartTime(LocalDateTime.of(2024, 3, 1, 10, 0))
-                .setEndTime(LocalDateTime.of(2024, 3, 31, 18, 0))
-                .build();
-
-        // Create a ChatMessage object
-        message = new ChatMessage.Builder()
-                .setMessageId(1)
-                .setSession(session) // Use ChatSession object
-                .setText("Hello")
-                .setTimeStamp(LocalDate.from(LocalDateTime.of(2024, 3, 25, 10, 0))) // Use LocalDateTime directly
+        //chatSession = new ChatSession(); // Create a mock ChatSession
+        chatMessage = new ChatMessage.Builder()
+                //.setMessageId(1)
+                //.setSession(chatSession)
+                .setQuestion("What is your name?")
+                .setAnswer("My name is ChatGPT.")
+                .setTimeStamp(LocalDate.now())
                 .build();
     }
 
     @Test
-    void testSaveMessage() {
-        when(repository.save(any(ChatMessage.class))).thenReturn(message);
-        ChatMessage savedMessage = service.saveMessage(message);
-        assertEquals(message, savedMessage);
-        verify(repository, times(1)).save(message);
+    public void createTest() {
+        //when(chatMessageRepository.save(any(ChatMessage.class))).thenReturn(chatMessage);
+
+        ChatMessage savedMessage = chatService.create("What is your name?", "My name is ChatGPT.");
+
+        assertNotNull(savedMessage);
+        assertEquals("What is your name?", savedMessage.getQuestion());
+        assertEquals("My name is ChatGPT.", savedMessage.getAnswer());
+        verify(chatMessageRepository, times(1)).save(any(ChatMessage.class));
     }
 
     @Test
-    void testGetMessagesBySessionId() {
-        List<ChatMessage> messages = new ArrayList<>();
-        messages.add(message);
-        when(repository.findBySessionId(1L)).thenReturn(messages);
+    public void readTest() {
+        when(chatMessageRepository.findById(1)).thenReturn(Optional.of(chatMessage));
 
-        List<ChatMessage> retrievedMessages = service.getMessagesBySessionId(1L);
-        assertEquals(1, retrievedMessages.size());
-        assertEquals(message, retrievedMessages.get(0));
-        verify(repository, times(1)).findBySessionId(1L);
+        ChatMessage foundMessage = chatService.read(1);
+
+        assertNotNull(foundMessage);
+        assertEquals(chatMessage.getMessageId(), foundMessage.getMessageId());
+        verify(chatMessageRepository, times(1)).findById(1);
     }
 
     @Test
-    void testDeleteMessageById() {
-        doNothing().when(repository).deleteById(1);
-        service.deleteMessageById(1);
-        verify(repository, times(1)).deleteById(1);
+    public void read_ShouldReturnNull_WhenNotExists() {
+        when(chatMessageRepository.findById(1)).thenReturn(Optional.empty());
+
+        ChatMessage foundMessage = chatService.read(1);
+
+        assertNull(foundMessage);
+        verify(chatMessageRepository, times(1)).findById(1);
+    }
+
+    @Test
+    public void deleteTest() {
+        chatService.delete(1);
+        verify(chatMessageRepository, times(1)).deleteById(1);
+    }
+
+    @Test
+    public void getAll_ShouldReturnListOfChatMessages() {
+        //when(chatMessageRepository.findAll()).thenReturn(Collections.singletonList(chatMessage));
+
+        List<ChatMessage> messages = chatService.getAll();
+
+        assertFalse(messages.isEmpty());
+        assertNotNull(messages);
+        System.out.println("All messages: "+ messages);
+
     }
 }
-
-
-

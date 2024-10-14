@@ -12,19 +12,16 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int messageId;
 
-    @ManyToOne
-    @JoinColumn(name = "session_id", nullable = false)
-    private ChatSession session; // Changed to ChatSession
-
-    private String text;
+    private String question;
+    private String answer;
     private LocalDate timeStamp;
 
     protected ChatMessage() {}
 
     private ChatMessage(Builder builder) {
         this.messageId = builder.messageId;
-        this.session = builder.session; // Changed to ChatSession
-        this.text = builder.text;
+        this.question = builder.question;
+        this.answer = builder.answer;
         this.timeStamp = builder.timeStamp;
     }
 
@@ -32,12 +29,12 @@ public class ChatMessage {
         return messageId;
     }
 
-    public ChatSession getSession() { // Changed return type to ChatSession
-        return session;
+    public String getQuestion() {
+        return question;
     }
 
-    public String getText() {
-        return text;
+    public String getAnswer() {
+        return answer;
     }
 
     public LocalDate getTimeStamp() {
@@ -49,28 +46,28 @@ public class ChatMessage {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChatMessage that = (ChatMessage) o;
-        return messageId == that.messageId && Objects.equals(session, that.session) && Objects.equals(text, that.text) && Objects.equals(timeStamp, that.timeStamp);
+        return messageId == that.messageId && Objects.equals(question, that.question) && Objects.equals(answer, that.answer) && Objects.equals(timeStamp, that.timeStamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(messageId, session, text, timeStamp);
+        return Objects.hash(messageId, question, answer, timeStamp);
     }
 
     @Override
     public String toString() {
         return "ChatMessage{" +
                 "messageId=" + messageId +
-                ", session=" + session + // Changed to ChatSession
-                ", text='" + text + '\'' +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
                 ", timeStamp=" + timeStamp +
                 '}';
     }
 
     public static class Builder {
         private int messageId;
-        private ChatSession session; // Changed to ChatSession
-        private String text;
+        private String question;
+        private String answer;
         private LocalDate timeStamp;
 
         public Builder setMessageId(int messageId) {
@@ -78,13 +75,13 @@ public class ChatMessage {
             return this;
         }
 
-        public Builder setSession(ChatSession session) { // Changed to ChatSession
-            this.session = session;
+        public Builder setQuestion(String question) {
+            this.question = question;
             return this;
         }
 
-        public Builder setText(String text) {
-            this.text = text;
+        public Builder setAnswer(String answer) {
+            this.answer = answer;
             return this;
         }
 
@@ -95,8 +92,8 @@ public class ChatMessage {
 
         public Builder copy(ChatMessage chatMessage) {
             this.messageId = chatMessage.messageId;
-            this.session = chatMessage.session; // Changed to ChatSession
-            this.text = chatMessage.text;
+            this.question = chatMessage.question;
+            this.answer = chatMessage.answer;
             this.timeStamp = chatMessage.timeStamp;
             return this;
         }

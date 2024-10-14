@@ -4,6 +4,11 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class Helper {
+    public static boolean isIntNotValid(int i) {    //checks int
+        if (i < 0)
+            return true;
+        return false;
+    }
     // Method to check if a string is null or empty
     public static boolean isNullOrEmpty(String s) {
         return s == null || s.isEmpty();
