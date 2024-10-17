@@ -14,7 +14,7 @@ class UserServiceTest {
     @Autowired
     private UserService userService;
 
-    private final  User user = UserFactory.buildUser("Boka@gmail.com","Mokoena", "Mokoena");
+    private final  User user = UserFactory.buildUser("Lesedi","Modiba","SediM@gmail.com","Password!123");
 
 
     @Test

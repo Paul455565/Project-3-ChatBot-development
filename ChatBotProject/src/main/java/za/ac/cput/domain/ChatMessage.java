@@ -12,6 +12,10 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int messageId;
 
+    @ManyToOne
+    @JoinColumn(name= "userID")
+    private User user;
+
     private String question;
     private String answer;
     private LocalDate timeStamp;
@@ -23,6 +27,7 @@ public class ChatMessage {
         this.question = builder.question;
         this.answer = builder.answer;
         this.timeStamp = builder.timeStamp;
+        this.user = builder.user;
     }
 
     public int getMessageId() {
@@ -40,18 +45,21 @@ public class ChatMessage {
     public LocalDate getTimeStamp() {
         return timeStamp;
     }
+    public User user(){
+        return user;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChatMessage that = (ChatMessage) o;
-        return messageId == that.messageId && Objects.equals(question, that.question) && Objects.equals(answer, that.answer) && Objects.equals(timeStamp, that.timeStamp);
+        return messageId == that.messageId && Objects.equals(question, that.question) && Objects.equals(answer, that.answer) && Objects.equals(timeStamp, that.timeStamp) && Objects.equals(user,that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(messageId, question, answer, timeStamp);
+        return Objects.hash(messageId, question, answer, timeStamp,user);
     }
 
     @Override
@@ -60,7 +68,8 @@ public class ChatMessage {
                 "messageId=" + messageId +
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
-                ", timeStamp=" + timeStamp +
+                ", timeStamp=" + timeStamp + '\''+
+                ",user=" + user +
                 '}';
     }
 
@@ -69,6 +78,7 @@ public class ChatMessage {
         private String question;
         private String answer;
         private LocalDate timeStamp;
+        private User user;
 
         public Builder setMessageId(int messageId) {
             this.messageId = messageId;
@@ -89,12 +99,17 @@ public class ChatMessage {
             this.timeStamp = timeStamp;
             return this;
         }
+        public Builder setUser(User user){
+            this.user = user;
+            return this;
+        }
 
         public Builder copy(ChatMessage chatMessage) {
             this.messageId = chatMessage.messageId;
             this.question = chatMessage.question;
             this.answer = chatMessage.answer;
             this.timeStamp = chatMessage.timeStamp;
+            this.user = chatMessage.user;
             return this;
         }
 

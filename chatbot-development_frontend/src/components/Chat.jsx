@@ -1,87 +1,108 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { createMessage } from './../service/chatService.js';
 
 function Chat() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [error, setError] = useState(null);
 
+    const messagesEndRef = useRef(null);
     const navigate = useNavigate();
+
     const handleSendMessage = async () => {
-        if (input.trim() === '') return; // Do nothing if the input is empty
-
-        // Create the message object
-        const userMessage = { text: input };
+        if (input.trim() === '') return;
 
 
-        // Immediately reflect the user's message on the UI
         setMessages([...messages, { sender: 'You', text: input }]);
-
-        // Mirror the user's input as the chatbot's response
-        setMessages(prevMessages => [
-            ...prevMessages,
-            { sender: 'Chatbot', text: input } // Mirror as chatbot response
-        ]);
-
-        // Clear the input field
+        const userMessage = input;
         setInput('');
 
         try {
-            // Attempt to post the message to the backend
-            const response = await axios.post('/api/chat/messages', userMessage);
+
+            const messageData = { question: userMessage, answer: 'Testing', userId: 2 };
+            const response = await createMessage(messageData);
+
+
+            setMessages(prevMessages => [
+                ...prevMessages,
+                { sender: 'Chatbot', text: response.data.answer }
+            ]);
         } catch (error) {
-            setError('Failed to send message to databse.');
+            setError('Failed to send message to the database.');
             console.error('Error sending message:', error);
         }
+
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
+
     const handleLogout = () => {
-        // Clear any user-related data or perform logout operations here
-        // Redirect to the landing page
-        navigate('/'); // Navigate to the landing page
+        navigate('/');
+    };
+
+    const handleViewPreviousChats = () => {
+        navigate('/previous-chats');
     };
 
     return (
         <div className="chat-wrapper">
-            <header>
-                <nav>
-                    <button onClick={() => console.log('Navigating to previous chats')}>Previous Chats</button>
-                    <button onClick={handleLogout}>Logout</button>
+            {/* Header */}
+            <header className="chat-header">
+                <nav className="chat-nav">
+                    <button onClick={handleViewPreviousChats} className="nav-button">
+                        Previous Chats
+                    </button>
+                    <button onClick={handleLogout} className="nav-button">
+                        Sign out
+                    </button>
                 </nav>
             </header>
-            <div className="chat-output">
+
+            {/* Messages */}
+            <div className="messages-container">
                 {messages.map((msg, index) => (
                     <div
                         key={index}
-                        className={`chat-message ${msg.sender === 'You' ? 'user-message' : 'bot-message'}`}
+                        className={`message-wrapper ${msg.sender === 'You' ? 'user-message' : 'assistant-message'}`}
                     >
-                        <strong>{msg.sender}:</strong> {msg.text}
+                        <div className="message-bubble">
+                            <div className="message-sender">
+                                {msg.sender}
+                            </div>
+                            <div className="message-text">
+                                {msg.text}
+                            </div>
+                        </div>
                     </div>
                 ))}
+                <div ref={messagesEndRef} />
             </div>
-            <div className="chat-input">
+
+            {/* Input Area */}
+            <div className="input-container">
+                {error && (
+                    <div className="error-message">
+                        {error}
+                    </div>
+                )}
                 <input
                     type="text"
                     value={input}
-                    placeholder="Message our ChatBot..."
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                    placeholder="Message..."
+                    className="message-input" // Ensure this class is styled as shown above
                 />
-                <button onClick={handleSendMessage}>Send</button>
+                <button
+                    onClick={handleSendMessage}
+                    className="send-button"
+                    disabled={!input.trim()}
+                >
+                    Send
+                </button>
             </div>
-            {error && <div className="error-message">{error}</div>}
         </div>
     );
 }
 
 export default Chat;
-
-
-
-
-
-
-
-
-
-

@@ -13,7 +13,7 @@ const LoginPage = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:8081/Project-3-ChatBot-development/user/login', {
+            const response = await fetch('http://localhost:8081/Chatbotdb/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
