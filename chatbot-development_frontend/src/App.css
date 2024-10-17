@@ -224,6 +224,52 @@ header button {
   border-radius: 4px;
   color: black; /* Ensure input text color is black */
 }
+.message-input {
+  width: 100%; /* Full width of the container */
+  max-width: 400px; /* Set a maximum width */
+  height: 40px; /* Set a fixed height */
+  padding: 10px; /* Add some padding for better text placement */
+  border: 1px solid #ccc;
+  border-radius: 25px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  color: black; /* Text color */
+  background-color: white; /* Background color */
+  box-sizing: border-box; /* Ensure padding is included in width/height */
+  resize: none; /* Disable resizing for textarea */
+}
+.chat-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  width: 70%; /* Set to 70% of the viewport width */
+  max-width: 1200px; /* Optional max width */
+  margin: 0 auto; /* Center the container */
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: black; /* Ensure all text in chat is black */
+  padding: 20px; /* Add some padding for inner spacing */
+}
+
+.messages-container {
+  flex: 1; /* Allow the message area to grow */
+  overflow-y: auto; /* Scroll if messages overflow */
+  background-color: white; /* Background for message area */
+  border: 1px solid #ddd; /* Optional border */
+  border-radius: 8px; /* Rounded corners for messages area */
+  margin-bottom: 10px; /* Space between messages and input area */
+}
+
+.input-container {
+  display: flex; /* Use flex to align items */
+  align-items: center; /* Center vertically */
+  justify-content: space-between; /* Space between input and button */
+}
+
+.nav-button {
+  margin-right: 10px; /* Space between buttons */
+}
+
 
 .chat-input button {
   padding: 10px 20px;

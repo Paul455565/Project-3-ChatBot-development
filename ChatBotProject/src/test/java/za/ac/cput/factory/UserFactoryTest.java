@@ -10,20 +10,23 @@ public class UserFactoryTest {
 
     @Test
     void buildUserSuccess() {
-        User user = buildUser(
+        User user = buildUser("Paul",
+                "Maja",
                 "paulmaja@gmail.com",
-                "boka24",
-                "boka24");
+                "boka24"
+                );
 
         assertNotNull(user);
+        assertEquals("Paul",user.getName());
+        assertEquals("Maja",user.getLastName());
         assertEquals("paulmaja@gmail.com", user.getEmail());
         assertEquals("boka24", user.getPassword());
-        assertEquals("boka24", user.getConfirmPassword());
     }
 
     @Test
     void buildUserFailure() {
         User user = buildUser(
+                null,
                 null,
                 null,
                 null);

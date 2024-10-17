@@ -1,18 +1,20 @@
 package za.ac.cput.factory;
 
 import za.ac.cput.domain.ChatMessage;
+import za.ac.cput.domain.User;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ChatMessageFactory {
-    public static ChatMessage buildChatMessage(int messageId, String question, String answer, LocalDateTime timeStamp) {
+    public static ChatMessage buildChatMessage(int messageId, String question, String answer, LocalDateTime timeStamp, User user) {
 
         if (Helper.isIntNotValid(messageId)
         || question == null
         || answer == null
-        ||timeStamp == null) {
+        ||timeStamp == null
+                ||user == null) {
             return null;
         }
 
@@ -22,6 +24,7 @@ public class ChatMessageFactory {
                 .setQuestion(question)
                 .setAnswer(answer)
                 .setTimeStamp(LocalDate.from(timeStamp))
+                .setUser(user)
                 .build();
     }
 }

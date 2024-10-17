@@ -9,6 +9,8 @@ import cputLogo from '../assets/cput-logo.jpeg';
 const RegistrationPage = () => {
     // State to manage form fields
     const [form, setForm] = useState({
+        name: '',
+        lastName: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -31,27 +33,39 @@ const RegistrationPage = () => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Validate if passwords match
         if (form.password !== form.confirmPassword) {
             setResponseMessage('Passwords do not match');
             return;
         }
+
         try {
-            // eslint-disable-next-line no-unused-vars
-            const response = await axios.post('http://localhost:8081/Project-3-ChatBot-development/user/create', {
+            // Submit registration request
+            const response = await axios.post('http://localhost:8081/Chatbotdb/user/create', {
+                name: form.name,
+                lastName: form.lastName,
                 email: form.email,
-                password: form.password,
-                confirmPassword: form.confirmPassword
+                password: form.password
             }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-            setResponseMessage('Form successfully sent');
-            setForm({
-                email: '',
-                password: '',
-                confirmPassword: ''
-            });
+
+            if (response.status === 200 || response.status === 201) {
+                setResponseMessage('Registration successful!');
+                // Clear form after success
+                setForm({
+                    name: '',
+                    lastName: '',
+                    email: '',
+                    password: '',
+                    confirmPassword: ''
+                });
+            } else {
+                setResponseMessage('Registration failed. Please try again.');
+            }
         } catch (error) {
             console.error('There was an error!', error);
             setResponseMessage('An error occurred while submitting the form.');
@@ -74,6 +88,26 @@ const RegistrationPage = () => {
             <form className="registration-form" onSubmit={handleSubmit}>
                 <div className="input-container">
                     <input
+                        type="text"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        placeholder="First Name..."
+                        required
+                    />
+                </div>
+                <div className="input-container">
+                    <input
+                        type="text"
+                        name="lastName"
+                        value={form.lastName}
+                        onChange={handleChange}
+                        placeholder="Last Name..."
+                        required
+                    />
+                </div>
+                <div className="input-container">
+                    <input
                         type="email"
                         name="email"
                         value={form.email}
@@ -84,7 +118,7 @@ const RegistrationPage = () => {
                 </div>
                 <div className="input-container">
                     <input
-                        type={showPassword ? "text" : "password"}
+                        type={showPassword ? 'text' : 'password'}
                         name="password"
                         value={form.password}
                         onChange={handleChange}
@@ -99,7 +133,7 @@ const RegistrationPage = () => {
                 </div>
                 <div className="input-container">
                     <input
-                        type={showConfirmPassword ? "text" : "password"}
+                        type={showConfirmPassword ? 'text' : 'password'}
                         name="confirmPassword"
                         value={form.confirmPassword}
                         onChange={handleChange}
@@ -118,6 +152,6 @@ const RegistrationPage = () => {
             <Link to="/login" className="login-link">Already have an account? Login...</Link>
         </div>
     );
-}
+};
 
 export default RegistrationPage;

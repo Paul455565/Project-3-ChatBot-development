@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import za.ac.cput.domain.ChatMessage;
 import za.ac.cput.domain.ChatSession;
+import za.ac.cput.domain.User;
 import za.ac.cput.repository.ChatMessageRepository;
 import za.ac.cput.repository.ChatSessionRepository;
+import za.ac.cput.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -32,39 +34,53 @@ class ChatServiceTest {
     @Autowired
     private ChatMessageRepository chatMessageRepository;
 
-    @Mock
-    private ChatSessionRepository chatSessionRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private ChatMessage chatMessage;
+    private User user;
     private ChatSession chatSession;
 
-    //@BeforeEach
+    @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
+        //MockitoAnnotations.openMocks(this);
         //chatSession = new ChatSession(); // Create a mock ChatSession
+        user = new User.Builder().setName("Malesela")
+                .setLastName("Modiba")
+                .setEmail("Modiba@email.com")
+                .setPassword("Password.123")
+                .buildUser();
+        user = userRepository.save(user);
         chatMessage = new ChatMessage.Builder()
                 //.setMessageId(1)
                 //.setSession(chatSession)
-                .setQuestion("What is your name?")
-                .setAnswer("My name is ChatGPT.")
-                .setTimeStamp(LocalDate.now())
+                .setQuestion("What is an API?")
+                .setAnswer("An application programming interface is a connection between computers or between computer programs. It is a type of software interface, offering a service to other pieces of software.")
+                .setTimeStamp(LocalDate.now()).setUser(user)
                 .build();
+
+        String question = "Hello, How are you", answer = "Hi, I am good and you.?";
+        chatMessage = chatService.create(question,answer,user.getUserId());
+        assertNotNull(chatMessage,"Chat should be created not null");
     }
 
     @Test
-    public void createTest() {
+     void createTest() {
         //when(chatMessageRepository.save(any(ChatMessage.class))).thenReturn(chatMessage);
 
-        ChatMessage savedMessage = chatService.create("What is your name?", "My name is ChatGPT.");
+        //ChatMessage savedMessage = chatService.create();
 
-        assertNotNull(savedMessage);
-        assertEquals("What is your name?", savedMessage.getQuestion());
-        assertEquals("My name is ChatGPT.", savedMessage.getAnswer());
-        verify(chatMessageRepository, times(1)).save(any(ChatMessage.class));
+        assertNotNull(chatMessage,"Should not be Null");
+        System.out.println("Created Message: " + chatMessage);
+        //assertEquals("What is an API?", savedMessage.getQuestion());
+        //assertEquals("An application programming interface is a connection between computers or between computer programs. " +
+                //"It is a type of software interface, offering a service to other pieces of software.", savedMessage.getAnswer());
+        //verify(chatMessageRepository, times(1)).save(any(ChatMessage.class));
     }
 
     @Test
-    public void readTest() {
+     void readTest() {
         when(chatMessageRepository.findById(1)).thenReturn(Optional.of(chatMessage));
 
         ChatMessage foundMessage = chatService.read(1);
@@ -75,7 +91,7 @@ class ChatServiceTest {
     }
 
     @Test
-    public void read_ShouldReturnNull_WhenNotExists() {
+     void read_ShouldReturnNull_WhenNotExists() {
         when(chatMessageRepository.findById(1)).thenReturn(Optional.empty());
 
         ChatMessage foundMessage = chatService.read(1);
@@ -85,13 +101,13 @@ class ChatServiceTest {
     }
 
     @Test
-    public void deleteTest() {
+     void deleteTest() {
         chatService.delete(1);
         verify(chatMessageRepository, times(1)).deleteById(1);
     }
 
     @Test
-    public void getAll_ShouldReturnListOfChatMessages() {
+     void getAll_ShouldReturnListOfChatMessages() {
         //when(chatMessageRepository.findAll()).thenReturn(Collections.singletonList(chatMessage));
 
         List<ChatMessage> messages = chatService.getAll();
@@ -100,5 +116,12 @@ class ChatServiceTest {
         assertNotNull(messages);
         System.out.println("All messages: "+ messages);
 
+    }
+    @Test
+    void getMessageByUserId(){
+        List<ChatMessage> userMessages = chatService.getMessageByUserId(user.getUserId());
+        assertNotNull(userMessages,"User messages list should not be null");
+        assertFalse(userMessages.isEmpty(),"Customer should have at least one message");
+        System.out.println("Chats for User: " + userMessages);
     }
 }

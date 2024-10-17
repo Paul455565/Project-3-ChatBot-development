@@ -27,8 +27,9 @@ public class ChatMessagesController {
     public ResponseEntity<ChatMessage> createMessage(@RequestBody Map<String, Object> payload) {
         String question = (String) payload.get("question");
         String answer = (String) payload.get("answer");
+        Integer userId = (Integer) payload.get("userId");
 
-        ChatMessage createdMessage = chatService.create(question, answer);
+        ChatMessage createdMessage = chatService.create(question, answer,userId);
         return new ResponseEntity<>(createdMessage, HttpStatus.CREATED);
     }
 
@@ -56,6 +57,22 @@ public class ChatMessagesController {
         return chatService.getAll();
     }
 
+    @GetMapping("/getMessageByUserId/{userId}")
+    public ResponseEntity<List<ChatMessage>> getMessageByUserId(@PathVariable int userId){
+        try {
+            List<ChatMessage> chatMessages = chatService.getMessageByUserId(userId);
+            if (chatMessages.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(chatMessages, HttpStatus.OK);
+        }catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+    }
+
     // Get messages by question (optional, for an additional feature)
     /*@GetMapping("/getByQuestion")
     public ResponseEntity<List<ChatMessage>> getMessagesByQuestion(@RequestParam("question") String question) {
@@ -69,4 +86,4 @@ public class ChatMessagesController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }*/
 
-}
+
