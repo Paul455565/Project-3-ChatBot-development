@@ -1,0 +1,54 @@
+/* Container for the registration page */
+.registration-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center vertically */
+    padding: 50px; /* Adjust padding as needed */
+}
+
+/* Form section styling */
+.form-section {
+    flex: 1; /* Allow the form section to take up remaining space */
+    max-width: 500px; /* Limit max width of form */
+}
+
+/* Logo styling */
+.cput-logo {
+    max-width: 300px; /* Adjust logo size */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* General styling for input containers */
+.input-container {
+    margin-bottom: 15px;
+}
+
+/* Registration form styles */
+.registration-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Button styles */
+.register-button {
+    padding: 10px;
+    background-color: #4CAF50; /* Existing button color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.register-button:hover {
+    background-color: #45a049; /* Existing hover color */
+}
+
+/* Additional styling for links and response messages */
+.login-link {
+    margin-top: 10px;
+    color: #007BFF; /* Existing link color */
+}
+
+.login-link:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
