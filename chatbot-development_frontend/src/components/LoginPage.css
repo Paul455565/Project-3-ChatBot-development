@@ -1,54 +1,100 @@
-.login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f9f9f9;
+/* General page styling */
+.login-page {
+    font-family: 'Arial', sans-serif; /* Keep original font */
+    margin: 0;
+    padding: 0;
 }
 
-h1 {
-    font-size: 36px;
+/* Main content layout */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+}
+
+/* Left section with logo */
+.left-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    max-width: 900px;
+    height: auto;
+}
+
+/* Right section with the form */
+.right-section {
+    flex: 1;
+    background-color: #f7f7f7; /* Set to a light grey or original color */
+    padding: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+}
+
+h2 {
+    font-size: 24px;
     margin-bottom: 20px;
+    color: #333; /* Change to your preferred color */
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
-    width: 300px;
 }
 
 .input-container {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-input {
+label {
+    display: block;
+    font-weight: bold;
+    color: #333; /* Change to your preferred color */
+}
+
+input[type="text"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 25px;
-    font-size: 16px;
+    border-radius: 4px;
+    font-size: 16px; /* Restore original font size */
 }
 
+/* Login button */
 .login-button {
     padding: 10px;
+    background-color: #007BFF; /* Change to original button color */
+    color: white;
     border: none;
-    border-radius: 25px;
-    background-color: #ddd;
-    font-size: 18px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
 .login-button:hover {
-    background-color: #ccc;
+    background-color: #0056b3; /* Darker shade for hover */
 }
 
-.register-link {
+/* Additional options below the form */
+.additional-options {
     margin-top: 20px;
-    color: #000;
-    text-decoration: none;
 }
 
-.register-link:hover {
-    text-decoration: underline;
+.option-button {
+    padding: 10px;
+    margin-right: 10px;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px; /* Restore original font size */
+}
+
+.option-button:hover {
+    background-color: #ccc;
 }
