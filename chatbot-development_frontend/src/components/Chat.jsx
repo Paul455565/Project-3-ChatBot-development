@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createMessage } from './../service/chatService.js';
 import axios from 'axios';
+import Header from './Header';  // Import the Header component
 
 function Chat() {
     const [messages, setMessages] = useState([]);
@@ -63,7 +64,10 @@ function Chat() {
 
     return (
         <div className="chat-wrapper">
-            <header className="chat-header">
+            {/* Integrate the Header component */}
+            <Header />
+
+            {/*<header className="chat-header">
                 <nav className="chat-nav">
                     <button onClick={handleViewPreviousChats} className="nav-button">
                         Previous Chats
@@ -72,7 +76,7 @@ function Chat() {
                         Sign out
                     </button>
                 </nav>
-            </header>
+            </header>*/}
 
             <div className="messages-container">
                 {messages.map((msg, index) => (
