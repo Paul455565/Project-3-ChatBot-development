@@ -6,7 +6,7 @@ import cors from 'cors';
 dotenv.config();
 
 const app = express();
-const PORT = 5000;  // Changed to 5000
+const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -16,10 +16,10 @@ app.post('/api/chat', async (req, res) => {
 
     try {
         const response = await axios.post(
-            'https://api.openai.com/v1/completions',
+            'https://api.openai.com/v1/chat/completions',
             {
-                model: 'gpt-4o-mini',
-                prompt: message,
+                model: 'gpt-4',
+                messages: [{ role: 'user', content: message }],
                 max_tokens: 150,
                 temperature: 0.7,
             },
@@ -31,7 +31,10 @@ app.post('/api/chat', async (req, res) => {
             }
         );
 
-        res.json({ reply: response.data.choices[0].text.trim() });
+        // Use response.data.choices[0].message.content to get the reply
+        const reply = response?.data?.choices?.[0]?.message?.content || 'No response available';
+        res.json({ reply });
+
     } catch (error) {
         console.error('Error fetching response from OpenAI:', error);
         res.status(500).json({ error: 'Error communicating with OpenAI API' });

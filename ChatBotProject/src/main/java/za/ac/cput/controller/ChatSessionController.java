@@ -8,18 +8,22 @@ import za.ac.cput.service.ChatSessionService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/chatSession")
 public class ChatSessionController {
+
     @Autowired
     private ChatSessionService chatSessionService;
 
-    @PostMapping("/save")
-    public ChatSession save(@RequestBody ChatSession chatSession) {
-        return chatSessionService.create(chatSession);
+    @PostMapping("/create")
+    public ChatSession create(@RequestParam String email,
+                                         @RequestParam String question,
+                                         @RequestParam String answer) {
+        return chatSessionService.create(email, question, answer);
     }
 
     @GetMapping("/read/{sessionId}")
-    public ChatSession read(@PathVariable Long sessionId) {
+    public ChatSession read(@PathVariable int sessionId) {
         return chatSessionService.read(sessionId);
     }
 
@@ -29,7 +33,7 @@ public class ChatSessionController {
     }
 
     @DeleteMapping("/delete/{sessionId}")
-    public void delete(@PathVariable Long sessionId) {
+    public void delete(@PathVariable int sessionId) {
         chatSessionService.delete(sessionId);
     }
 

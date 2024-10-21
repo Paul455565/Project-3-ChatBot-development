@@ -17,6 +17,7 @@ public class ChatMessage {
     private User user;
 
     private String question;
+    @Column(columnDefinition = "LONGTEXT")
     private String answer;
     private LocalDate timeStamp;
 
