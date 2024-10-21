@@ -1,0 +1,149 @@
+body {
+    margin: 0; /* Remove default margin */
+    font-family: Arial, sans-serif; /* Set a default font */
+}
+
+.chat-layout {
+    display: flex;
+    flex-direction: column; /* Stack header, messages, and footer vertically */
+    height: 100vh; /* Full height for the chat layout */
+    background-color: #ffffff; /* White background for the chat layout */
+}
+
+.header {
+    background-color: #007bff; /* Header background color */
+    color: white; /* Header text color */
+    padding: 15px; /* Padding for the header */
+    text-align: center; /* Center the header text */
+}
+
+.previous-chats {
+    width: 300px; /* Fixed width for the sidebar */
+    background-color: #ffffff; /* White background for the sidebar */
+    padding: 20px; /* Padding for the sidebar */
+    overflow-y: auto; /* Scroll if content overflows */
+    position: absolute; /* Position absolutely to move it to the left */
+    left: 0; /* Align to the far left */
+    top: 0; /* Align to the top */
+    bottom: 0; /* Extend to the bottom */
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between; /* Align header items */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space below header */
+}
+
+.sidebar-header h3 {
+    margin: 0; /* Remove default margin */
+    font-size: 24px; /* Larger font size for header */
+}
+
+.chat-list p {
+    margin: 10px 0; /* Space between chat items */
+    cursor: pointer; /* Pointer cursor for clickable items */
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.chat-list p:hover {
+    background-color: #e9ecef; /* Highlight on hover */
+}
+
+.messages-container {
+    display: flex;
+    flex-direction: column; /* Vertical layout */
+    padding: 20px; /* Padding for the chat area */
+    margin-left: 300px; /* Offset for the sidebar width */
+    background-color: #ffffff; /* White background for the main area */
+    flex: 1; /* Take remaining vertical space */
+    overflow: hidden; /* Prevent overflow */
+}
+
+.messages {
+    flex: 1; /* Allow messages to take available space */
+    overflow-y: auto; /* Scroll if messages overflow */
+    padding: 20px; /* Increase padding for more space */
+    max-height: calc(100vh - 160px); /* Limit height to fit within the viewport */
+}
+
+.input-container {
+    width: 100%; /* Full width for input container */
+    height: 80px; /* Fixed height for the input container */
+    background-color: #ffffff; /* White background for the input area */
+    display: flex; /* Flexbox for children */
+    align-items: center; /* Center items vertically */
+    border-top: 1px solid #ccc; /* Optional: add a border for separation */
+}
+
+.message-input {
+    flex: 1; /* Allow input to take remaining space */
+    height: 100%; /* Fill the height of the input container */
+    padding: 10px; /* Set padding for input */
+    border: 1px solid #ccc; /* Border for input */
+    border-radius: 8px; /* Rounded corners for input */
+    font-size: 16px; /* Adjust font size if necessary */
+    margin-right: 10px; /* Space between input and button */
+    box-sizing: border-box; /* Include padding and border in total width and height */
+}
+
+.send-button {
+    padding: 15px 20px; /* Set padding for button */
+    font-size: 16px; /* Font size for button */
+    border-radius: 8px; /* Rounded corners for button */
+    background-color: #007bff; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.footer {
+    background-color: #007bff; /* Footer background color */
+    color: white; /* Footer text color */
+    padding: 15px; /* Padding for the footer */
+    text-align: center; /* Center the footer text */
+}
+
+.message-wrapper {
+    margin-bottom: 15px; /* Space between messages */
+}
+
+.user-message {
+    align-self: flex-end; /* Align user messages to the right */
+}
+
+.assistant-message {
+    align-self: flex-start; /* Align assistant messages to the left */
+}
+
+.message-bubble {
+    padding: 15px; /* Padding for message bubble */
+    border-radius: 10px; /* Rounded corners for bubbles */
+    max-width: 70%; /* Limit width of message bubble */
+}
+
+.user-message .message-bubble {
+    background-color: #e1f5fe; /* Light blue for user messages */
+    margin-left: auto; /* Align user messages to the right */
+}
+
+.assistant-message .message-bubble {
+    background-color: #f1f1f1; /* Light gray for assistant messages */
+    margin-right: auto; /* Align assistant messages to the left */
+}
+
+.message-sender {
+    font-weight: bold; /* Bold sender name */
+    margin-bottom: 5px; /* Space below sender name */
+}
+
+.error-message {
+    color: red; /* Error text color */
+    margin-top: 5px; /* Space above error message */
+}
+
+/* Global reset for box sizing */
+* {
+    box-sizing: border-box;
+}

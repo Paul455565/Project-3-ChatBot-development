@@ -42,7 +42,7 @@ const RegistrationPage = () => {
 
         try {
             // Submit registration request
-            const response = await axios.post('http://localhost:8081/Chatbotdb/user/create', {
+            const response = await axios.post('http://localhost:8081/Project-3-ChatBot-development/user/create', {
                 name: form.name,
                 lastName: form.lastName,
                 email: form.email,
