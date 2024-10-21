@@ -14,7 +14,7 @@ function App() {
                 <header className="header">
                     <nav>
                         <Link to="/">Home</Link>
-                        <Link to="/chat">Chat</Link>
+                         <Link to="/chat">Chat</Link>
                         <Link to="/previous-chats">Previous Chats</Link>
                         <Link to="/login">Login</Link>
                         <Link to="/register">Register</Link>

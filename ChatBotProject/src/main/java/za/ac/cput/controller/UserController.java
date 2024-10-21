@@ -13,37 +13,57 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "*")
-
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
     @Autowired
     private UserService service;
 
-
     @PostMapping("/create")
-    public User create(@RequestBody User user) {
-        return service.create(user);
+    public ResponseEntity<User> create(@RequestBody User user) {
+        try {
+            User createdUser = service.create(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/read/{userId}")
-    public User read(@PathVariable Integer userId) {
-        return service.read(userId);
+    public ResponseEntity<User> read(@PathVariable Integer userId) {
+        User user = service.read(userId);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PostMapping("/update")
-    public User update(@RequestBody User user) {
-        return service.update(user);
+    public ResponseEntity<User> update(@RequestBody User user) {
+        try {
+            User updatedUser = service.update(user);
+            if (updatedUser != null) {
+                return ResponseEntity.ok(updatedUser);
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @DeleteMapping("/delete/{userId}")
-    public boolean delete(@PathVariable Integer userId) {
-        return service.delete(userId);
+    public ResponseEntity<Void> delete(@PathVariable Integer userId) {
+        boolean deleted = service.delete(userId);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping("/allUsers")
-    public List<User> getAll() {
-        return service.getAll();
+    public ResponseEntity<List<User>> getAll() {
+        List<User> users = service.getAll();
+        return ResponseEntity.ok(users);
     }
 
     @PostMapping("/login")
@@ -64,10 +84,5 @@ public class UserController {
             response.put("message", "Invalid credentials");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
-    }
-    // Add an OPTIONS handler to address preflight requests
-    @RequestMapping(value = "/login", method = RequestMethod.OPTIONS)
-    public ResponseEntity<?> handlePreflight() {
-        return ResponseEntity.ok().build();
     }
 }

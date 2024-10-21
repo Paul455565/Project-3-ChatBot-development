@@ -19,6 +19,7 @@ public class UserService implements IUserService {
 
     @Override
     public User create(User user) {
+        // Ensure password hashing if you plan to secure it
         return repository.save(user);
     }
 
@@ -29,12 +30,20 @@ public class UserService implements IUserService {
 
     @Override
     public User update(User user) {
-        return repository.save(user);
+        // Ensure the user exists before updating
+        if (repository.existsById(user.getUserId())) {
+            return repository.save(user);
+        }
+        return null; // or throw an exception
     }
 
     @Override
-    public boolean delete(Integer integer) {
-        return false;
+    public boolean delete(Integer userId) {
+        if (repository.existsById(userId)) {
+            repository.deleteById(userId);
+            return true;
+        }
+        return false; // or throw an exception
     }
 
     @Override
@@ -44,12 +53,7 @@ public class UserService implements IUserService {
 
     public boolean authenticateUser(String email, String password) {
         User user = repository.findByEmail(email);
-        if (user != null && user.getPassword().equals(password)) {
-            return true;
-        }
-        return false;
+        // Ensure the user is not null before checking password
+        return user != null && user.getPassword().equals(password);
     }
-
-
 }
-
