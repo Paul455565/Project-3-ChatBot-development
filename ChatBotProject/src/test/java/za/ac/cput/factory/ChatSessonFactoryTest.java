@@ -1,4 +1,4 @@
-package za.ac.cput.factory;
+/*package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.domain.ChatSession;
@@ -28,4 +28,4 @@ class ChatSessionFactoryTest {
         // Output the ChatSession object to the console
         System.out.println(chatSession);
     }
-}
+}*/

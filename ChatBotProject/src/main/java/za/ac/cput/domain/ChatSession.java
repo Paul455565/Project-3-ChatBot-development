@@ -1,19 +1,30 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
-@Table(name = "C_sessions")
+@Table(name = "Conversation")
 public class ChatSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sessionId;
-    private int userId;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private int sessionId;
+
+    @ManyToOne
+    @JoinColumn(name = "userID")
+    private User userId;
+
+    @ManyToOne
+    @JoinColumn(name = "prompt")
+    private ChatMessage question;
+
+    @ManyToOne
+    @JoinColumn(name = "response")
+    private ChatMessage answer;
+
+    private LocalDateTime date;
 
     // Default constructor
     public ChatSession() {}
@@ -22,24 +33,41 @@ public class ChatSession {
     private ChatSession(Builder builder) {
         this.sessionId = builder.sessionId;
         this.userId = builder.userId;
-        this.startTime = builder.startTime;
-        this.endTime = builder.endTime;
+        this.question = builder.question;
+        this.answer = builder.answer;
+        this.date = builder.date;
     }
 
-    public Long getSessionId() {
+    public int getSessionId() {
         return sessionId;
     }
 
-    public int getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public ChatMessage getQuestion() {
+        return question;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public ChatMessage getAnswer() {
+        return answer;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ChatSession that)) return false;
+        return sessionId == that.sessionId && Objects.equals(userId, that.userId) && Objects.equals(question, that.question) && Objects.equals(answer, that.answer) && Objects.equals(date, that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sessionId, userId, question, answer, date);
     }
 
     @Override
@@ -47,44 +75,52 @@ public class ChatSession {
         return "ChatSession{" +
                 "sessionId=" + sessionId +
                 ", userId=" + userId +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
+                ", question=" + question +
+                ", answer=" + answer +
+                ", date=" + date +
                 '}';
     }
 
     // Builder class
     public static class Builder {
 
-        private Long sessionId;
-        private int userId;
-        private LocalDateTime startTime;
-        private LocalDateTime endTime;
+        private int sessionId;
+        private User userId;
+        private ChatMessage question;
+        private ChatMessage answer;
+        private LocalDateTime date;
 
-        public Builder setSessionId(Long sessionId) {
+        public Builder setSessionId(int sessionId) {  // Corrected to int
             this.sessionId = sessionId;
             return this;
         }
 
-        public Builder setUserId(int userId) {
+        public Builder setUserId(User userId) {
             this.userId = userId;
             return this;
         }
 
-        public Builder setStartTime(LocalDateTime startTime) {
-            this.startTime = startTime;
+        public Builder setQuestion(ChatMessage question) {
+            this.question = question;
             return this;
         }
 
-        public Builder setEndTime(LocalDateTime endTime) {
-            this.endTime = endTime;
+        public Builder setAnswer(ChatMessage answer) {
+            this.answer = answer;
+            return this;
+        }
+
+        public Builder setDate(LocalDateTime date) {
+            this.date = date;
             return this;
         }
 
         public Builder copyChatSession(ChatSession session) {
             this.sessionId = session.sessionId;
             this.userId = session.userId;
-            this.startTime = session.startTime;
-            this.endTime = session.endTime;
+            this.question = session.question;
+            this.answer = session.answer;
+            this.date = session.date;
             return this;
         }
 
@@ -93,4 +129,3 @@ public class ChatSession {
         }
     }
 }
-
