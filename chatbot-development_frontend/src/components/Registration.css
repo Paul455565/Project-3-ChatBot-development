@@ -1,38 +1,52 @@
-/* Container for the registration page */
-.registration-container {
+/* General container styling */
+.registration-page {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Center vertically */
-    padding: 50px; /* Adjust padding as needed */
+    align-items: center;
+    padding: 50px;
 }
 
-/* Form section styling */
-.form-section {
-    flex: 1; /* Allow the form section to take up remaining space */
-    max-width: 500px; /* Limit max width of form */
+/* Left section for the logo */
+.left-section {
+    flex: 2; /* Take 2/3 of the width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: visible; /* Ensure the image can grow */
 }
 
-/* Logo styling */
+/* CPUT logo styling */
 .cput-logo {
-    max-width: 300px; /* Adjust logo size */
-    height: auto; /* Maintain aspect ratio */
+    height: 100px; /* Set height */
+    width: 100%; /* Force image to take up available space */
+    max-width: none; /* Remove any max-width limitations */
+    margin-right: 150px;
+    object-fit: contain; /* Keep the image aspect ratio */
 }
 
-/* General styling for input containers */
+/* Right section for the form */
+.right-section {
+    flex: 1; /* Take 50% of the width */
+    padding-left: 50px; /* Add spacing between sections */
+}
+
+/* Input container styling */
 .input-container {
     margin-bottom: 15px;
+    color: white;
 }
 
-/* Registration form styles */
+/* Registration form styling */
 .registration-form {
     display: flex;
     flex-direction: column;
 }
 
-/* Button styles */
+/* Register button styling */
 .register-button {
     padding: 10px;
-    background-color: #4CAF50; /* Existing button color */
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 4px;
@@ -40,15 +54,60 @@
 }
 
 .register-button:hover {
-    background-color: #45a049; /* Existing hover color */
+    background-color: #45a049;
 }
 
-/* Additional styling for links and response messages */
+/* Link and response message styling */
 .login-link {
     margin-top: 10px;
-    color: #007BFF; /* Existing link color */
+    color: #007BFF;
 }
 
 .login-link:hover {
-    text-decoration: underline; /* Add underline on hover */
+    text-decoration: underline;
 }
+
+/* Header Styles */
+.header {
+    background-color: #617993; /* Same color as footer */
+    padding: 10px;
+    color: white;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+.header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Additional styles for the Registration page */
+.registration-page {
+    font-family: 'Arial', sans-serif; /* Keep original font */
+    margin: 0;
+    padding: 0;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+}
+
