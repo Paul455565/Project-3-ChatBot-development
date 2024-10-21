@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Added Link for navigation
 import cputLogo from '../assets/cput-logo.jpeg'; // Ensure this path is correct.
 import './LoginPage.css'; // Ensure this points to the correct CSS file
 
@@ -38,6 +38,16 @@ const LoginPage = () => {
 
     return (
         <div className="login-page">
+            {/* Header Section */}
+            <header className="header">
+                <nav>
+                    <ul>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/register">Register</Link></li>
+                    </ul>
+                </nav>
+            </header>
+
             <div className="content-wrapper">
                 <div className="left-section">
                     <img src={cputLogo} alt="CPUT Logo" className="logo" />
@@ -73,11 +83,6 @@ const LoginPage = () => {
 
                         {responseMessage && <p>{responseMessage}</p>}
                     </form>
-
-                    <div className="additional-options">
-                        <button className="option-button">Forgot Password</button>
-                        <button className="option-button">Change Password</button>
-                    </div>
                 </div>
             </div>
         </div>
