@@ -41,9 +41,9 @@ class ChatSessionServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        //MockitoAnnotations.openMocks(this);
 
-        user = new User.Builder().setEmail("Audi2@gmail.com").setName("Malesela").setLastName("Modiba").setPassword("Password?123").buildUser();// Assume this has been initialized with necessary fields
+        user = new User.Builder().setEmail("TestEmail@gmail.com").setName("Malesela").setLastName("Modiba").setPassword("Password?123").buildUser();// Assume this has been initialized with necessary fields
         question = new ChatMessage.Builder()
                 .setQuestion("What is AI?")
                 .setTimeStamp(LocalDateTime.now().toLocalDate())
