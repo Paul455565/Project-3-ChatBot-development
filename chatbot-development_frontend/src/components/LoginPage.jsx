@@ -25,6 +25,7 @@ const LoginPage = () => {
 
             const data = await response.json();
 
+
             if (response.ok) {
                 setResponseMessage('Login successful');
                 navigate('/chat');
