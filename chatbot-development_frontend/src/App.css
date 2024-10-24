@@ -436,12 +436,56 @@ input {
   background-color: #4a617d; /* Darker shade for hover effect */
 }
 
+/* Add keyframes for animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+/* Apply the animations to the main sections */
+#root, .login-container, .chat-wrapper, .registration-container {
+  animation: fadeIn 1.5s ease-in-out;
+}
 
+h1, .login-form, .chat-output, .chat-input, .registration-form, .messages-container, .header, .footer {
+  animation: slideIn 1.2s ease-in-out;
+}
 
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
 
+/* Keep the same styles, but add transitions to buttons and inputs */
+button, input {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
 
+button:hover, input:focus {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
 
+/* Header and footer animation */
+.header, .footer {
+  animation: fadeIn 2s ease-in-out;
+}
 
-
+/* Optional: Smooth appearance for the logout button */
+.logout-button {
+  animation: fadeIn 1.5s ease-in-out;
+}

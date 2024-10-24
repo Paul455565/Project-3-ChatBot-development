@@ -27,7 +27,9 @@ function PreviousChats() {
     };
 
     return (
+
         <div className="container-fluid">
+
             <div className="chat-box">
                 <header>
                     <nav>
@@ -37,12 +39,22 @@ function PreviousChats() {
 
                 <div className="chat-output">
                     {messages.length > 0 ? (
-                        messages.map((msg, index) => (
-                            <div key={index} className="chat-message">
-                                <strong>You:</strong> {msg.question}<br />
-                                <strong>Chatbot:</strong> {msg.answer}
-                            </div>
-                        ))
+                        <table className="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">Prompt</th>
+                                <th scope="col">Response</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {messages.map((msg, index) => (
+                                <tr key={index}>
+                                    <td>{msg.question}</td>
+                                    <td>{msg.answer}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
                     ) : (
                         <p>No previous messages found.</p>
                     )}

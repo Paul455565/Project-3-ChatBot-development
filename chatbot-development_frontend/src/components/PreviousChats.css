@@ -11,22 +11,20 @@
 }
 
 .chat-box {
-    width: 80%;
-    max-width: 700px;
-    width: 99vw;
+    width: 95%; /* Increased width to cover more of the page */
+    max-width: 1200px; /* Increased maximum width */
     background-color: white;
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    height: 85vh;
+    height: 90vh; /* Increased height to cover more of the viewport */
     padding: 20px;
 }
 
 header nav {
     display: flex;
     justify-content: space-between;
-    /*background-color: #e9ecef;*/
     border-radius: 5px;
     padding: 10px;
 }
@@ -38,6 +36,23 @@ header nav {
     padding: 15px;
     overflow-y: auto;
     margin-bottom: 15px;
+    height: 100%; /* Ensure the chat output takes up the full available space */
+}
+
+table {
+    width: 100%; /* Make table take the full width of the container */
+    height: 100%; /* Adjust the height of the table */
+}
+
+table th, table td {
+    padding: 15px; /* Increase padding for better readability */
+    text-align: left;
+    vertical-align: top; /* Ensure content aligns nicely */
+}
+
+table thead {
+    background-color: #007bff;
+    color: white;
 }
 
 .chat-message {
@@ -64,3 +79,4 @@ button.btn {
 button.btn:hover {
     background-color: #0056b3;
 }
+
