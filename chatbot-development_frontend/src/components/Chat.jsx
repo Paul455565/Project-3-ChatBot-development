@@ -38,7 +38,7 @@ function Chat() {
             const messageData = {
                 question: userMessage,
                 answer: chatbotReply,
-                userId: 5,  // Replace this with the actual user ID
+                userId: localStorage.getItem(userId),  // Replace this with the actual user ID
             };
 
             // Store the message and response in the database
